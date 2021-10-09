@@ -14,7 +14,7 @@ import java.util.Map;
  * @name:
  * @author:Setsnua
  * @date:2021/10/8 17:24
- * @description:
+ * @description:token新增字段
  */
 @Component
 public class TokenEnhancerImpl implements TokenEnhancer {
