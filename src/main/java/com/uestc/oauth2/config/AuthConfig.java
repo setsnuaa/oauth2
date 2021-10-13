@@ -51,21 +51,24 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        //客户端配置
         clients.jdbc(dataSource).passwordEncoder(md5Password);
     }
 
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        //配置令牌端点的安全约束，这个端点谁能访问，谁不能访问
         security.allowFormAuthenticationForClients();
         security.checkTokenAccess("permitAll()");
     }
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        //配置令牌的访问端点和令牌服务
         endpoints.userDetailsService(userService);
-        TokenEnhancerChain tokenEnhancerChain=new TokenEnhancerChain();
-        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter(),tokenEnhancer));
+        TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
+        tokenEnhancerChain.setTokenEnhancers(Arrays.asList(jwtAccessTokenConverter(), tokenEnhancer));
         endpoints.authenticationManager(authenticationManager)
                 .reuseRefreshTokens(true)
                 .tokenStore(tokenStore)

@@ -16,6 +16,7 @@ import java.util.Map;
  * @date:2021/10/8 17:24
  * @description:token新增字段
  */
+
 @Component
 public class TokenEnhancerImpl implements TokenEnhancer {
     @Override
