@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 
 /**
  * @name:
- * @author:Setsnua
+ * @author:pan.gefei
  * @date:2021/9/29 16:08
  * @description:
  */
@@ -20,7 +20,9 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                 csrf().disable()
                 .exceptionHandling()
                 .and()
-                .authorizeRequests().anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/oauth/token", "/oauth/logout").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .httpBasic();
     }
