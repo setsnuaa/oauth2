@@ -13,13 +13,13 @@ import javax.annotation.Resource;
  * @name:
  * @author:pan.gefei
  * @date:2021/10/18 17:20
- * @description:
+ * @description:包装调用check_token后的返回值
  */
-@RestController
+/*@RestController
 public class CheckTokenSuccessConfig {
     @GetMapping("oauth/check_token")
     public Object checkToken(String token){
 
 
     }
-}
+}*/
