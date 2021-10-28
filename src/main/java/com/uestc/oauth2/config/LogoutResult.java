@@ -1,7 +1,6 @@
 package com.uestc.oauth2.config;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 /**
  * @name:
