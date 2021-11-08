@@ -1,18 +1,14 @@
 package com.uestc.oauth2.service.impl;
 
-import com.uestc.oauth2.config.Md5Password;
 import com.uestc.oauth2.entity.User;
 import com.uestc.oauth2.mapper.UserMapper;
 import com.uestc.oauth2.service.UserService;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
-import java.util.Collection;
 
 /**
  * @author jie.zhong
@@ -27,9 +23,27 @@ public class UserImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userMapper.loadUserByUsername(s);
+        User user = userMapper.findByUsername(s);
         if(ObjectUtils.isEmpty(user)){
             throw new UsernameNotFoundException("用户名或密码不正确");
+        }
+        return user;
+    }
+
+    @Override
+    public User findByFpCode(String fpCode) throws UsernameNotFoundException {
+        User user = userMapper.findByFpCode(fpCode);
+        if(ObjectUtils.isEmpty(user)){
+            throw new UsernameNotFoundException("指纹不正确");
+        }
+        return user;
+    }
+
+    @Override
+    public User findByUKey(String uKey) throws UsernameNotFoundException {
+        User user = userMapper.findByFpCode(uKey);
+        if(ObjectUtils.isEmpty(user)){
+            throw new UsernameNotFoundException("UKey不正确");
         }
         return user;
     }

@@ -15,6 +15,20 @@ public interface UserMapper {
      * @param username 用户名称
      * @return 查询结果
      */
-    User loadUserByUsername(String username);
+    User findByUsername(String username);
+
+    /**
+     *
+     * @param fpCode
+     * @return 查询结果
+     */
+    User findByFpCode(String fpCode);
+
+    /**
+     *
+     * @param uKey
+     * @return 查询结果
+     */
+    User findByUKey(String uKey);
 
 }

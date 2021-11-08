@@ -20,6 +20,10 @@ public class User implements UserDetails {
 
     private String password;
 
+    private String fpCode;
+
+    private String uKey;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -54,6 +58,10 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public String getUKey(){return this.uKey;}
+
+    public String getFpCode(){return this.fpCode;}
 
     public Long getId() {
         return this.id;

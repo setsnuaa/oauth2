@@ -13,6 +13,7 @@ import javax.sql.DataSource;
  * @version 1.0
  * @date 2021/9/22 16:52
  */
+@Service
 public class ClientServiceImpl extends JdbcClientDetailsService {
 
     public ClientServiceImpl(DataSource dataSource) {
