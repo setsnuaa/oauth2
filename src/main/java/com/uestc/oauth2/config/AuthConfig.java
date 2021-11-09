@@ -165,6 +165,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
         if (authenticationManager != null) {
             // 添加密码模式
             tokenGranters.add(new ResourceOwnerPasswordTokenGranter(authenticationManager, tokenServices,clientDetailsService, requestFactory));
+            // 添加UKey模式
         }
         return tokenGranters;
     }
@@ -184,7 +185,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
         if (authenticationManager != null) {
             // 自己的认证模式  构造函数最后一个形参 则是grant_type的参数值
             // 指纹认证
-            tokenGranters.add(new FingerPrintGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory, "finger_print"));
+            tokenGranters.add(new FingerPrintGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));
             // ukey认证
             //tokenGranters.add(new OpenIdAuthGranter(authenticationManager,tokenServices,clientDetailsService,requestFactory,"weChat"));
         }

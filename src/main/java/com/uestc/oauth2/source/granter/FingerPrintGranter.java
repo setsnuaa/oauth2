@@ -19,23 +19,27 @@ import java.util.Map;
  * @description:
  */
 public class FingerPrintGranter extends AbstractTokenGranter {
-    private AuthenticationManager manager;
+    private static final String GRANT_TYPE = "fp";
+    private AuthenticationManager authenticationManager;
 
-    public FingerPrintGranter(AuthenticationManager manager, AuthorizationServerTokenServices tokenServices,
-                              ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
+    public FingerPrintGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
+        this(authenticationManager, tokenServices, clientDetailsService, requestFactory, "fp");
+    }
+
+    protected FingerPrintGranter(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices, ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory, String grantType) {
         super(tokenServices, clientDetailsService, requestFactory, grantType);
-        this.manager = manager;
+        this.authenticationManager = authenticationManager;
     }
 
     @Override
     protected OAuth2Authentication getOAuth2Authentication(ClientDetails client, TokenRequest tokenRequest) {
         Map<String, String> parameters = new LinkedHashMap<>(tokenRequest.getRequestParameters());
         //String username = parameters.get("username");
-        String fpCode = parameters.get("fpCode");
+        String fpCode = (String)parameters.get("fpCode");
         parameters.remove("fpCode");
         Authentication userAuth = new FingerPrintToken(fpCode);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
-        userAuth = manager.authenticate(userAuth);
+        userAuth = authenticationManager.authenticate(userAuth);
         if (userAuth == null || !userAuth.isAuthenticated()) {
             throw new InvalidGrantException("Could not authenticate fingerprint: " + fpCode);
         }
