@@ -27,7 +27,6 @@ import org.springframework.security.oauth2.provider.request.DefaultOAuth2Request
 import org.springframework.security.oauth2.provider.token.*;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
-import lombok.SneakyThrows;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -67,7 +66,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
     JwtAccessTokenConverter jwtAccessTokenConverter;
 
     @Resource
-    private ClientServiceImpl clientDetailsService;
+    private ClientServiceImpl clientService;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -125,7 +124,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
      * @return 请求工厂
      */
     private OAuth2RequestFactory requestFactory() {
-        return new DefaultOAuth2RequestFactory(clientDetailsService);
+        return new DefaultOAuth2RequestFactory(clientService);
     }
 
 /*    @Bean
@@ -155,16 +154,16 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
             , AuthorizationCodeServices authorizationCodeServices, OAuth2RequestFactory requestFactory) {
         List<TokenGranter> tokenGranters = new ArrayList<>();
         // 添加授权码模式
-        tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices, authorizationCodeServices, clientDetailsService, requestFactory));
+        tokenGranters.add(new AuthorizationCodeTokenGranter(tokenServices, authorizationCodeServices, clientService, requestFactory));
         // 添加刷新令牌的模式
-        tokenGranters.add(new RefreshTokenGranter(tokenServices, clientDetailsService, requestFactory));
+        tokenGranters.add(new RefreshTokenGranter(tokenServices, clientService, requestFactory));
         // 添加隐士授权模式
-        tokenGranters.add(new ImplicitTokenGranter(tokenServices, clientDetailsService, requestFactory));
+        tokenGranters.add(new ImplicitTokenGranter(tokenServices, clientService, requestFactory));
         // 添加客户端模式
-        tokenGranters.add(new ClientCredentialsTokenGranter(tokenServices, clientDetailsService, requestFactory));
+        tokenGranters.add(new ClientCredentialsTokenGranter(tokenServices, clientService, requestFactory));
         if (authenticationManager != null) {
             // 添加密码模式
-            tokenGranters.add(new ResourceOwnerPasswordTokenGranter(authenticationManager, tokenServices,clientDetailsService, requestFactory));
+            tokenGranters.add(new ResourceOwnerPasswordTokenGranter(authenticationManager, tokenServices, clientService, requestFactory));
             // 添加UKey模式
         }
         return tokenGranters;
@@ -185,7 +184,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
         if (authenticationManager != null) {
             // 自己的认证模式  构造函数最后一个形参 则是grant_type的参数值
             // 指纹认证
-            tokenGranters.add(new FingerPrintGranter(authenticationManager, tokenServices, clientDetailsService, requestFactory));
+            tokenGranters.add(new FingerPrintGranter(authenticationManager, tokenServices, clientService, requestFactory));
             // ukey认证
             //tokenGranters.add(new OpenIdAuthGranter(authenticationManager,tokenServices,clientDetailsService,requestFactory,"weChat"));
         }
@@ -205,7 +204,7 @@ public class AuthConfig extends AuthorizationServerConfigurerAdapter {
         tokenEnhancerChain.setTokenEnhancers(tokenEnhancers);
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setTokenStore(tokenStore);
-        defaultTokenServices.setClientDetailsService(clientDetailsService);
+        defaultTokenServices.setClientDetailsService(clientService);
         defaultTokenServices.setTokenEnhancer(tokenEnhancerChain);
         defaultTokenServices.setSupportRefreshToken(true);
         defaultTokenServices.setReuseRefreshToken(false);

@@ -23,7 +23,7 @@ public class UserImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user = userMapper.findByUsername(s);
+        User user = userMapper.loadUserByUsername(s);
         if(ObjectUtils.isEmpty(user)){
             throw new UsernameNotFoundException("用户名或密码不正确");
         }
