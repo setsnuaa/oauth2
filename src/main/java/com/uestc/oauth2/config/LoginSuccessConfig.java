@@ -5,7 +5,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
-import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
@@ -29,7 +28,7 @@ public class LoginSuccessConfig implements ResponseBodyAdvice {
         // 仅拦截 OAuth2AccessToken
         if (o instanceof DefaultOAuth2AccessToken) {
             DefaultOAuth2AccessToken token = (DefaultOAuth2AccessToken) o;
-            return RespronseResult.ok().put("token", token);
+            return ResponseResult.ok().put("token", token);
         }
         return o;
     }
