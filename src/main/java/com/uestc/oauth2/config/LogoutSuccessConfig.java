@@ -5,6 +5,7 @@ import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
@@ -29,7 +30,7 @@ public class LogoutSuccessConfig {
      * @return
      */
     @GetMapping("/oauth/logout")
-    public Object logout(String accessToken) {
+    public Object logout(@RequestParam("token")String accessToken) {
         if (consumerTokenServices.revokeToken(accessToken)) {
             return LogoutResult.ok();
         }

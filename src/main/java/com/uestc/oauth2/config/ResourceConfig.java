@@ -21,7 +21,7 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/oauth/token", "/oauth/logout").permitAll()
+                .antMatchers("/oauth/token", "/oauth/logout","/user/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic();
