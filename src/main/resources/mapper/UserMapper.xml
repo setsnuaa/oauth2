@@ -13,4 +13,7 @@
         SELECT * FROM `t_user` WHERE fingerprint = #{fpCode}
     </select>
     <!--根据ukey去查询-->
+    <select id="loadUserByFingerprint" resultType="com.uestc.oauth2.entity.User">
+        SELECT * FROM `t_user` WHERE ukey = #{uKey}
+    </select>
 </mapper>
