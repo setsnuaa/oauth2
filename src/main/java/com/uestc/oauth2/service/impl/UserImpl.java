@@ -32,7 +32,7 @@ public class UserImpl implements UserService {
 
     @Override
     public User findByFpCode(String fpCode) throws UsernameNotFoundException {
-        User user = userMapper.findByFpCode(fpCode);
+        User user = userMapper.loadUserByFingerprint(fpCode);
         if(ObjectUtils.isEmpty(user)){
             throw new UsernameNotFoundException("指纹不正确");
         }
@@ -41,7 +41,7 @@ public class UserImpl implements UserService {
 
     @Override
     public User findByUKey(String uKey) throws UsernameNotFoundException {
-        User user = userMapper.findByFpCode(uKey);
+        User user = userMapper.loadUserByUKey(uKey);
         if(ObjectUtils.isEmpty(user)){
             throw new UsernameNotFoundException("UKey不正确");
         }

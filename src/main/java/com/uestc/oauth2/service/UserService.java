@@ -1,6 +1,5 @@
 package com.uestc.oauth2.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import com.uestc.oauth2.entity.User;

@@ -22,13 +22,13 @@ public interface UserMapper {
      * @param fpCode
      * @return 查询结果
      */
-    User findByFpCode(String fpCode);
+    User loadUserByFingerprint(String fpCode);
 
     /**
      *
      * @param uKey
      * @return 查询结果
      */
-    User findByUKey(String uKey);
+    User loadUserByUKey(String uKey);
 
 }
