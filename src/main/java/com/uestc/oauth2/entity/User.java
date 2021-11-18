@@ -20,9 +20,9 @@ public class User implements UserDetails {
 
     private String password;
 
-    private String fpCode;
+    private String fingerprint;
 
-    private String uKey;
+    private String ukey;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -59,9 +59,9 @@ public class User implements UserDetails {
         return true;
     }
 
-    public String getUKey(){return this.uKey;}
+    public String getUkey(){return this.ukey;}
 
-    public String getFpCode(){return this.fpCode;}
+    public String getFingerprint(){return this.fingerprint;}
 
     public Long getId() {
         return this.id;

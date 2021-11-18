@@ -10,10 +10,10 @@
 
     <!--根据指纹去查询-->
     <select id="loadUserByFingerprint" resultType="com.uestc.oauth2.entity.User">
-        SELECT * FROM `t_user` WHERE fingerprint = #{fpCode}
+        SELECT * FROM `t_user` WHERE fingerprint = #{fingerprint}
     </select>
     <!--根据ukey去查询-->
     <select id="loadUserByFingerprint" resultType="com.uestc.oauth2.entity.User">
-        SELECT * FROM `t_user` WHERE ukey = #{uKey}
+        SELECT * FROM `t_user` WHERE ukey = #{ukey}
     </select>
 </mapper>

@@ -19,16 +19,16 @@ public interface UserMapper {
 
     /**
      *
-     * @param fpCode
+     * @param fingerprint
      * @return 查询结果
      */
-    User loadUserByFingerprint(String fpCode);
+    User loadUserByFingerprint(String fingerprint);
 
     /**
      *
-     * @param uKey
+     * @param ukey
      * @return 查询结果
      */
-    User loadUserByUKey(String uKey);
+    User loadUserByUKey(String ukey);
 
 }
