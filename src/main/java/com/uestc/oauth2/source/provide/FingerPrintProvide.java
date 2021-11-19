@@ -27,16 +27,9 @@ public class FingerPrintProvide implements AuthenticationProvider {
     public Authentication authenticate(Authentication authenticationToken) throws AuthenticationException {
         // 传入参数为指纹（待定）
         //String username = (String) authenticationToken.getPrincipal();
-        String fpCode = (String) authenticationToken.getPrincipal();
-        User user = userDetailsService.findByFpCode(fpCode);
-//        //TODO 验证 验证码正确性
-//        //TODO 验证 登录用户是否可能登录
-        //SysUserDTO sysUserDTO = new SysUserDTO();
-        //sysUserDTO.setId(1L);
-        //sysUserDTO.setUsername("root");
-        //User user = new User(sysUserDTO,null);
-
-        FingerPrintToken authenticationResult = new FingerPrintToken(user, fpCode, null);
+        String fingerprint = (String) authenticationToken.getPrincipal();
+        User user = userDetailsService.findByFpCode(fingerprint);
+        FingerPrintToken authenticationResult = new FingerPrintToken(user, fingerprint, null);
         authenticationResult.setDetails(authenticationToken.getDetails());
         return authenticationResult;
     }
